@@ -1,0 +1,1 @@
+# tf-az-automation-storage-sync
