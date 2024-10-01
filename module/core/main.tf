@@ -1,7 +1,7 @@
 
 resource "azurerm_resource_group" "rg-automation" {
   name     = var.global_settings.resource_group_name
-  location = "East US 2"
+  location = var.global_settings.location
 }
 
 resource "azurerm_virtual_network" "auto-acct-vnet" {
