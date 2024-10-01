@@ -38,7 +38,6 @@ resource "azurerm_automation_hybrid_runbook_worker" "auto-hwg-worker" {
   vm_resource_id          = module.vm-worker.hybrid_worker_vm.id
   worker_group_name       = azurerm_automation_hybrid_runbook_worker_group.auto-hwg-group.name
   worker_id               = "10000000-0000-0000-0000-000000000001"
-  depends_on              = [module.vm-worker]
 }
 
 // Add a schedule for the runbook we created.  The runbook should run once daily at 2:00 AM

@@ -53,7 +53,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dfs-vnet-link" {
   virtual_network_id    = azurerm_virtual_network.auto-acct-vnet.id
 }
 
-module "priv-ep-blob" {
+module "priv-ep-blob-dst" {
   source          = "../../services/priv-ep"
   global_settings = var.global_settings
   location        = var.global_settings.location
@@ -71,7 +71,7 @@ module "priv-ep-blob" {
   }
 }
 
-module "priv-ep-dfs" {
+module "priv-ep-dfs-dst" {
   source          = "../../services/priv-ep"
   global_settings = var.global_settings
   location        = var.global_settings.location
@@ -89,3 +89,40 @@ module "priv-ep-dfs" {
   }
 }
 
+############################
+
+module "priv-ep-blob-src" {
+  source          = "../../services/priv-ep"
+  global_settings = var.global_settings
+  location        = var.global_settings.location
+  subnet_id       = azurerm_subnet.auto-acct-subnet.id
+  name            = "pe-blob-${var.module_settings.source_stg_acct_name}"
+  private_service_connection = {
+    name                           = "${var.module_settings.source_storage_acct_name}-blob"
+    private_connection_resource_id = var.module_settings.source_stg_acct_id
+    is_manual_connection           = false
+    subresource_names              = ["blob"]
+  }
+  private_dns_zone_group = {
+    name                 = "blob-zone-group"
+    private_dns_zone_ids = [azurerm_private_dns_zone.private_dns_zone_blob.id]
+  }
+}
+
+module "priv-ep-dfs-src" {
+  source          = "../../services/priv-ep"
+  global_settings = var.global_settings
+  location        = var.global_settings.location
+  subnet_id       = azurerm_subnet.auto-acct-subnet.id
+  name            = "pe-dfs-${var.module_settings.source_storage_acct_name}"
+  private_service_connection = {
+    name                           = "${var.module_settings.source_storage_acct_name}-dfs"
+    private_connection_resource_id = var.module_settings.source_stg_acct_id
+    is_manual_connection           = false
+    subresource_names              = ["dfs"]
+  }
+  private_dns_zone_group = {
+    name                 = "dfs-zone-group"
+    private_dns_zone_ids = [azurerm_private_dns_zone.private_dns_zone_dfs.id]
+  }
+}

@@ -16,7 +16,8 @@ locals {
   }
 
   core_module_settings = {
-    source_stg_acct_name   = var.source_stg_acct_name
+    source_stg_acct_name   = data.azurerm_storage_account.stgsrc.name
+    source_stg_acct_id     = data.azurerm_storage_account.stgsrc.id
     dest_storage_acct_name = var.dest_storage_acct_name
   }
 
