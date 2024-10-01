@@ -117,7 +117,7 @@ Function Sync-StorageAccts {
     #$Env:AZCOPY_SPA_CLIENT_SECRET=<client-secret>
     #$Env:AZCOPY_TENANT_ID=<tenant-id>
 
-    C:\azcopy\azcopy.exe copy 'https://stgdatadw.dfs.core.windows.net/' 'https://stgdatadw2.dfs.core.windows.net' --recursive --overwrite=ifSourceNewer
+    C:\azcopy\azcopy.exe copy 'https://sacabidainf.dfs.core.windows.net/' 'https://${var.module_settings.destination_storage_account.name}.dfs.core.windows.net' --recursive --overwrite=ifSourceNewer
 }
 
 Check-Dependencies
