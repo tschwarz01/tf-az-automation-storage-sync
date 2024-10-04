@@ -98,7 +98,7 @@ module "priv-ep-blob-src" {
   subnet_id       = azurerm_subnet.auto-acct-subnet.id
   name            = "pe-blob-${var.module_settings.source_stg_acct_name}"
   private_service_connection = {
-    name                           = "${var.module_settings.source_storage_acct_name}-blob"
+    name                           = "${var.module_settings.source_stg_acct_name}-blob"
     private_connection_resource_id = var.module_settings.source_stg_acct_id
     is_manual_connection           = false
     subresource_names              = ["blob"]
@@ -114,9 +114,9 @@ module "priv-ep-dfs-src" {
   global_settings = var.global_settings
   location        = var.global_settings.location
   subnet_id       = azurerm_subnet.auto-acct-subnet.id
-  name            = "pe-dfs-${var.module_settings.source_storage_acct_name}"
+  name            = "pe-dfs-${var.module_settings.source_stg_acct_name}"
   private_service_connection = {
-    name                           = "${var.module_settings.source_storage_acct_name}-dfs"
+    name                           = "${var.module_settings.source_stg_acct_name}-dfs"
     private_connection_resource_id = var.module_settings.source_stg_acct_id
     is_manual_connection           = false
     subresource_names              = ["dfs"]

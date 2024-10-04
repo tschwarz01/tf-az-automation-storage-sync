@@ -19,7 +19,8 @@ variable "module_settings" {
       name = string
       id   = string
     })
-    source_storage_account_id = string
+    source_storage_account_id   = string
+    source_storage_account_name = string
   })
 
 }

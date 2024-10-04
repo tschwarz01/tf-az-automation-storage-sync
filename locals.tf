@@ -27,6 +27,7 @@ locals {
     subnet_id                   = module.core.subnet.id
     destination_storage_account = module.core.destination-storage-account
     source_storage_account_id   = data.azurerm_storage_account.stgsrc.id
+    source_storage_account_name = data.azurerm_storage_account.stgsrc.name
     vm_admin_username           = var.vm_admin_username
     vm_admin_password           = var.vm_admin_password
   }

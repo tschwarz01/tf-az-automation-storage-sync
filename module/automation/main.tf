@@ -38,6 +38,7 @@ resource "azurerm_automation_hybrid_runbook_worker" "auto-hwg-worker" {
   vm_resource_id          = module.vm-worker.hybrid_worker_vm.id
   worker_group_name       = azurerm_automation_hybrid_runbook_worker_group.auto-hwg-group.name
   worker_id               = "10000000-0000-0000-0000-000000000001"
+  depends_on              = [azurerm_automation_account.auto-acct, azurerm_automation_hybrid_runbook_worker_group.auto-hwg-group, module.vm-worker]
 }
 
 // Add a schedule for the runbook we created.  The runbook should run once daily at 2:00 AM
@@ -116,7 +117,7 @@ Function Sync-StorageAccts {
     #$Env:AZCOPY_SPA_CLIENT_SECRET=<client-secret>
     #$Env:AZCOPY_TENANT_ID=<tenant-id>
 
-    C:\azcopy\azcopy.exe copy 'https://sacabidainf.dfs.core.windows.net/' 'https://${var.module_settings.destination_storage_account.name}.dfs.core.windows.net' --recursive --overwrite=ifSourceNewer
+    C:\azcopy\azcopy.exe copy 'https://stgdatadw.dfs.core.windows.net/' 'https://stgdstcopytws.dfs.core.windows.net' --recursive --overwrite=ifSourceNewer
 }
 
 Check-Dependencies
